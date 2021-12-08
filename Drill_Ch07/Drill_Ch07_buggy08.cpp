@@ -38,7 +38,7 @@ const char name = 'a';
 const char power = 'p';
 const char sqare = 's';
 const string quitkey = "exit";
-
+const string declkey = "#";
 
 Token Token_stream::get()
 {
@@ -77,14 +77,14 @@ Token Token_stream::get()
             return Token(number, val);
             }
         default:
-            if (isalpha(ch))
+            if (isalpha(ch) || ch == '#') // nem elegáns
             {
                 string s = "";
                 s += ch;
-                while (cin.get(ch) && (isalpha(ch) ))
+                while (cin.get(ch) && (isalpha(ch) || isdigit(ch) ))
                     s += ch;
                     cin.unget();
-                    if (s == "let")
+                    if (s == declkey)
                         return Token(let);
                     if (s == quitkey)
                         return Token(quit);
